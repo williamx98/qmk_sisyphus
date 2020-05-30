@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #endif
 #include "wait.h"
-#include "print.h"
-#include "debug.h"
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
@@ -48,18 +46,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #if (MATRIX_COLS <= 8)
-#    define print_matrix_header()  print("\nr/c 01234567\n")
-#    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
 #    define matrix_bitpop(i)       bitpop(matrix[i])
 #    define ROW_SHIFTER ((uint8_t)1)
 #elif (MATRIX_COLS <= 16)
-#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
-#    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
 #    define matrix_bitpop(i)       bitpop16(matrix[i])
 #    define ROW_SHIFTER ((uint16_t)1)
 #elif (MATRIX_COLS <= 32)
-#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
-#    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
 #    define matrix_bitpop(i)       bitpop32(matrix[i])
 #    define ROW_SHIFTER  ((uint32_t)1)
 #endif
@@ -233,13 +225,6 @@ matrix_row_t matrix_get_row(uint8_t row)
 
 void matrix_print(void)
 {
-    print_matrix_header();
-
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        print_matrix_row(row);
-        print("\n");
-    }
 }
 
 uint8_t matrix_key_count(void)

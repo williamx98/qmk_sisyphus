@@ -18,7 +18,6 @@
 #include "lib/lufa/LUFA/Drivers/Peripheral/TWI.h"
 #include "lib/lufa/LUFA/Drivers/Peripheral/AVR8/TWI_AVR8.c"
 #include "mcp23017.h"
-#include "debug.h"
 #include "wait.h"
 
 uint8_t bit_for_pin(uint8_t pin);
@@ -28,25 +27,6 @@ uint8_t expander_write(uint8_t reg, uint8_t data);
 uint8_t expander_read(uint8_t reg, uint8_t *data);
 
 void expander_config(void);
-
-static const char *twi_err_str(uint8_t res) {
-    switch (res) {
-        case TWI_ERROR_NoError:
-            return "OK";
-        case TWI_ERROR_BusFault:
-            return "BUSFAULT";
-        case TWI_ERROR_BusCaptureTimeout:
-            return "BUSTIMEOUT";
-        case TWI_ERROR_SlaveResponseTimeout:
-            return "SLAVETIMEOUT";
-        case TWI_ERROR_SlaveNotReady:
-            return "SLAVENOTREADY";
-        case TWI_ERROR_SlaveNAK:
-            return "SLAVENAK";
-        default:
-            return "UNKNOWN";
-    }
-}
 
 void expander_init(void) {
     TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 400000));
@@ -99,9 +79,6 @@ uint8_t bit_for_pin(uint8_t pin) {
 uint8_t expander_write(uint8_t reg, unsigned char val) {
     uint8_t addr = reg;
     uint8_t result = TWI_WritePacket(EXPANDER_ADDR << 1, I2C_TIMEOUT, &addr, sizeof(addr), &val, sizeof(val));
-    if (result) {
-        xprintf("mcp: set_register %d = %d failed: %s\n", reg, val, twi_err_str(result));
-    }
     return result == 0;
 }
 

@@ -17,3 +17,4 @@
 #pragma once
 
 // place overrides here
+#   define OLED_FONT_H "keyboards/nek_type_a/keymaps/default/glcdfont_custom.c"
