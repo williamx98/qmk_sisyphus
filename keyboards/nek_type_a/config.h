@@ -33,10 +33,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* left columns are all onboard, right columns all on expander */
 #define COL_EXPANDED { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
-#define MATRIX_COL_PINS { GPB0, GPB1, GPB2, GPB3, GPB4, GPB5, GPB6, GPA0, GPA1, GPA2, GPA3, GPA4, GPA5, GPA6, GPA7}
-#define MATRIX_ROW_PINS { F7, F6, F5, F4, F1}
+#define MATRIX_COL_PINS { GPA3, GPA4, GPA5, GPA6, GPA7, GPA1, GPA2, GPB6, GPB7, GPB0, GPB1, GPB2, GPB3, GPB4, GPB5}
+#define MATRIX_ROW_PINS { B7, B6, B5, D7, C6}
 
 #define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 1
+
+#define ENCODERS_PAD_A { F4 }
+#define ENCODERS_PAD_B { F1 }
+#define ENCODER_RESOLUTION 2

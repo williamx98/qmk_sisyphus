@@ -43,26 +43,26 @@ uint32_t layer_state_set_kb(uint32_t state) {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_270;
+	return OLED_ROTATION_90;
 }
 
 int display_state = 0;
 void oled_task_user(void) {
   if (timer_elapsed32(oled_timer) > 60000) {
   	if (display_state == 1) {
-		oled_clear();
-		display_state = 0;
-	}
-	return;
+		  oled_clear();
+		  display_state = 0;
+	  }
+	  return;
   } else {
-	display_state = 1;
+	  display_state = 1;
   }
 
   uint8_t mods = get_mods();
   
   switch (get_highest_layer(layer_state)) {
     case 0:
-      oled_write_ln_P(PSTR("FUNCT"), false);sublimesubsgithub.c
+      oled_write_ln_P(PSTR("FUNCT"), false);
       break;
     case 1:
       oled_write_ln_P(PSTR("FUNCT"), true);
@@ -96,3 +96,18 @@ void oled_task_user(void) {
   oled_write_P(PSTR("UD"), false);
 }
 #endif
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+    clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
+//     switch(get_highest_layer(layer_state)) {
+//         case _BASE:
+//             clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
+//             break;
+//         case _UPPER:
+          
+//             break;
+//         case _LOWER:
+//             clockwise ? tap_code(KC_MEDIA_NEXT_TRACK) : tap_code(KC_MEDIA_PREV_TRACK);
+//             break;
+//         }
+}

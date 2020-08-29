@@ -15,3 +15,10 @@
  */
 
 #include "abacus.h"
+
+#ifdef OLED_DRIVER_ENABLE
+
+void oled_task_user(void) {
+  oled_write_P(PSTR("SHIFT"), true);
+}
+#endif

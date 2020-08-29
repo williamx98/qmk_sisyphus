@@ -37,3 +37,4 @@ BLUETOOTH = AdafruitBLE
 
 SRC += matrix.c mcp23017.c
 OLED_DRIVER_ENABLE = yes
+ENCODER_ENABLE = yes
